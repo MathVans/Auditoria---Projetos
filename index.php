@@ -64,7 +64,7 @@ if(!isset($_SESSION['user'])){
 
               
 
-                        <button type="button" class="btn btn-primary" onclick="openModal()" data-toggle="modal" data-target="#exampleModal" data-whatever="testestes">Cadastrar</button>
+                        <button type="button" class="btn btn-primary g-4" onclick="openModal()" data-toggle="modal" data-target="#exampleModal" data-whatever="testestes">Cadastrar</button>
                     
                     <!--  MODAL    -->               
                     <?php
