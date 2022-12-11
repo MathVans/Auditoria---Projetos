@@ -80,6 +80,15 @@ public $titulo;
  * 
  * 
  */
+public $situacao;
+
+/**
+ * 
+ * Identificador local
+ *  @var string
+ * 
+ * 
+ */
 public $local;
 
 
@@ -113,8 +122,8 @@ public function cadastrar(){
                             'plataforma'=> $this->plataforma,
                             'clienteUn'=> $this->clienteUn,
                             'titulo'=> $this->titulo,
-                            'local'=> $this->local,
-                            'liberacao'=> $this->liberacao
+                            'situacao'=> $this->situacao,
+                            'local'=> $this->local
                         ]);
                 // print_r($this);                    
                 return true;

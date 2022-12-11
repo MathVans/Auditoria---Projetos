@@ -5,7 +5,7 @@ include('conexao.php');
 include __DIR__.'\script\Cadastrar.php';
 
 use App\Entity\Projeto;
-$pros = Projeto::getProjeto();
+$projetos = Projeto::getProjeto();
 
 session_start();
 

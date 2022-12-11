@@ -14,7 +14,7 @@ use \App\Entity\Projeto;
    $obProj->plataforma = $_POST['PlataformaSelect'];
    $obProj->clienteUn = $_POST['ClienteSelect'];
    $obProj->local = $_POST['LocalSelect'];
-   $obProj->liberacao = $_POST['StatusSelect'];
+   $obProj->situacao = $_POST['StatusSelect'];
    $obProj->cadastrar();
    header('location: index.php?Status=Sucess');
    exit;
