@@ -7,14 +7,16 @@ use \App\Entity\Projeto;
  $_POST['ClienteSelect'], $_POST['LocalSelect'], $_POST['StatusSelect'] )){
 
     $obProj = new Projeto;
-    $obProj->
-                print_r($_POST['ProjetoId']."\N      ");
-                print_r($_POST['AreaId']."\N      ");
-                print_r($_POST['OperacaoSelect']."\N      ");
-                print_r($_POST['TituloProjeto']."\N      ");
-                print_r($_POST['PlataformaSelect']."\N      ");
-                print_r($_POST['ClienteSelect']."\N      ");
-                print_r($_POST['LocalSelect']."\N      ");
-                print_r($_POST['StatusSelect']."\N      ");
+    $obProj->projeto = $_POST['ProjetoId'];
+    $obProj->area = $_POST['AreaId'];
+    $obProj->operacao = $_POST['OperacaoSelect'];
+    $obProj->titulo = $_POST['TituloProjeto'];
+    $obProj->plataforma = $_POST['PlataformaSelect'];
+    $obProj->clienteUn = $_POST['ClienteSelect'];
+    $obProj->local = $_POST['LocalSelect'];
+    $obProj->liberacao = $_POST['StatusSelect'];
+
+           echo "<pre>";     print_r($obProj); echo "</pre>";
+              
   
 }

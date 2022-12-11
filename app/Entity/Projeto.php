@@ -73,15 +73,6 @@ public $titulo;
 
 /**
  * 
- * Identificador situação
- *  @var string
- * 
- * 
- */
-public $situacao;
-
-/**
- * 
  * Identificador local
  *  @var string
  * 
