@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Db\Database; 
+use \PDO;
 
 class Projeto{
 /**
@@ -91,4 +93,45 @@ public $local;
 public $liberacao;
 
 
+
+/** 
+ * 
+ *
+ * Cadastrar novo projeto
+ * 
+ * @return boolean
+ */
+
+public function cadastrar(){
+
+
+    $obDatabase = new Database('projetos');
+    $this->ID = $obDatabase->insert([
+                            'projeto'=> $this->projeto,
+                            'area'=> $this->area,
+                            'operacao'=> $this->operacao,
+                            'plataforma'=> $this->plataforma,
+                            'clienteUn'=> $this->clienteUn,
+                            'titulo'=> $this->titulo,
+                            'local'=> $this->local,
+                            'liberacao'=> $this->liberacao
+                        ]);
+                // print_r($this);                    
+                return true;
+            
+            }
+
+    /**
+     * 
+     * 
+     * @param string
+     * @param string
+     * @param string
+     * 
+     * @return array
+     *  */        
+    public static function getProjeto($where=null, $order=null, $limit=null){
+
+        return(new Database('projetos'))->select($where,$order,$limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
 }

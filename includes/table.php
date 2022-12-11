@@ -1,7 +1,13 @@
 <?php
+    
     $query = "select * from projetos ORDER BY projeto ASC";
     $projetos = mysqli_query($conexao, $query);
     $exibe = mysqli_fetch_array($projetos);
+
+
+
+
+   
 ?>
 <style type="text/css">
     #NavbarIndex{
