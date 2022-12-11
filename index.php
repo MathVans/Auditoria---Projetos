@@ -70,6 +70,7 @@ if(!isset($_SESSION['user'])){
                     <?php
                     //  ----------------------
                             include __DIR__.'/includes/modal.php';
+                            include __DIR__.'/includes/modalUpdate.php';
                     ?>
                                        
                     <!--FIM MODAL-->
@@ -110,6 +111,7 @@ if(!isset($_SESSION['user'])){
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

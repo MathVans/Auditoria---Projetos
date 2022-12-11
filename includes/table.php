@@ -7,16 +7,17 @@
             }else{
                 $a = "Sem atualização";
             }
-           $resultados .="<tr><td>".$row->projeto."</td>
-                  <td>".$row->area."</td>
-                  <td>".$row->operacao."</td>
-                  <td>".$row->plataforma."</td>
-                  <td>".$row->clienteUn."</td>
-                  <td>".$row->local."</td>
-                  <td>".$a."</td>
-                  </tr>";
+            $resultados .='<tr data-toggle="modal" data-target="#exampleModal"><td>'.$row->projeto.'</td>
+                  <td>'.$row->area.'</td>
+                  <td>'.$row->operacao.'</td>
+                  <td>'.$row->plataforma.'</td>
+                  <td>'.$row->clienteUn.'</td>
+                  <td>'.$row->local.'</td>
+                  <td>'.$a.'</td>
+                  <td style="display:none">'.$row->ID.'</td>
+                  </tr>';
               
-
+                 // 
         }
     
 ?>
@@ -82,6 +83,7 @@
                                     <th scope="col">Cliente/Unidade</th>     
                                     <th scope="col">Local</th>
                                     <th scope="col">Status</th>
+                                    <th style="display:none" scope="col">ID</th> 
                                     <!-- <th scope="col">Actions</th> -->
                                 </tr>
                             </thead>
@@ -97,57 +99,79 @@
 
 
 
+    
 
-     <script type="text/javascript">
+    <script type="text/javascript">
            //debugger;
 
              var tabela = document.getElementById("Tabela_Projetos");
              var linhas = tabela.getElementsByTagName("tr");
-             var dados = "";
+             var dados = 0;
 
 
             for(var i = 0; i < linhas.length; i++){
 	            var linha = linhas[i];
-              linha.addEventListener("click", function(){
-                       //debugger;
-                       
-                //   $('#myTab a[href="#Atualizar"]').tab('show');
-                  dados = "";
+                linha.addEventListener("click", function(){
+                dados = "";
   	                //Adicionar ao atual
-                            selLinha(this, false); //Selecione apenas um
-                        //selLinha(this, true); //Selecione quantos quiser    	                              
-                       var selecionados = tabela.getElementsByClassName("selecionado");
-                       var selecionadoth = selecionados[0].getElementsByTagName("th");
-                      
-                       if(selecionadoth != null){
-                           try{
-                             if(selecionadoth[0].innerHTML == "Projeto"){                             
-                               selecionados[0].classList.remove("selecionado");
-                               return;   
-                                }
-                              }
-                           catch{
-                               
-                           }      
-                       }
+                        selLinha(this, false);  
 
-                       openModal();
+                        var selecionados = tabela.getElementsByClassName("selecionado");
+                        for(var i = 0; i < selecionados.length; i++){
+                                    var selecionado = selecionados[i];
+                                    selecionado = selecionado.getElementsByTagName("td");
+                                    var id = selecionado[0].innerHTML;
+                                                                
+                                }
+
+
+                        var selecionadoth = selecionados[0].getElementsByTagName("th");
+                        if(selecionadoth != null){
+                            try{
+                                if(selecionadoth[0].innerHTML == "Projeto"){                             
+                                selecionados[0].classList.remove("selecionado");
+                                return;   
+                                    }
+                                }
+                            catch{
+                                
+                            }      
+                        } 
+                       //debugger;
+                        //Recupere o Id do registro e passe para o seu modal
+                        var text = $("#textarea").val();
+                        $("#modal_body").html(id);
+                        
+                        $('#updateModal').modal('show');
 	                });
 
                           
                          
-                function selLinha(linha, multiplos){
-                      if(!multiplos){
-  	                    var linhas = linha.parentElement.getElementsByTagName("tr");
-                            for(var i = 0; i < linhas.length; i++){
-                               var linha_ = linhas[i];
-                               linha_.classList.remove("selecionado");    
-                            }
-                      }
-                      linha.classList.toggle("selecionado");
-
-                    }
+                    function selLinha(linha, multiplos){
+                        if(!multiplos){
+                            var linhas = linha.parentElement.getElementsByTagName("tr");
+                                for(var i = 0; i < linhas.length; i++){
+                                var linha_ = linhas[i];
+                                linha_.classList.remove("selecionado"); 
+                                dados = 0;   
+                                }
+                        }
+                        linha.classList.toggle("selecionado");
+                        }
      
+
+    //     $('#updateModal').on('show.bs.modal', function () {                                                       
+    //     var button = $(event.relatedTarget); // Button that triggered the modal
+    //     var recipientId    = button.data('id');                                                                 
+    //     var recipientNome = button.data('nome'); // Extract info from data-* attributes
+    //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //     var modal = $(this);
+    //     modal.find('#id').val(recipientId); << pega o valor armazenado no recipient e substitui no modal onde o #id = o id do campo no modal para substituir
+    //     modal.find('#nome').val(recipientNome);
+    // });          
+
+
 
      }
  
@@ -155,4 +179,3 @@
 
      </script>
    
-    
