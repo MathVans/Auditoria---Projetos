@@ -132,32 +132,32 @@ include __DIR__.'/includes/footer.php';
      * Excluir Projeto
      * 
      * 
-     */
-                $("#btnExcluirProj").click(function () {      
-                    debugger;
-                    var dados = {
-                        UpIDId: $("#UpIDId").val()
+    //  */
+    //             $("#btnExcluirProj").click(function () {      
+    //                 debugger;
+    //                 var dados = {
+    //                     UpIDId: $("#UpIDId").val()
                     
-                    };
-                    console.log(dados);
-                    $.ajax({
-                url: "script/Excluir.php",
-                type: "POST",
-                data: dados,
-                dataType: "html"
+    //                 };
+    //                 console.log(dados);
+    //                 $.ajax({
+    //             url: "script/Excluir.php",
+    //             type: "POST",
+    //             data: dados,
+    //             dataType: "html"
 
-                }).done(function(resposta) {
-                console.log(resposta);
+    //             }).done(function(resposta) {
+    //             console.log(resposta);
 
-                }).fail(function(jqXHR, textStatus ) {
-                console.log("Request failed: " + textStatus);
+    //             }).fail(function(jqXHR, textStatus ) {
+    //             console.log("Request failed: " + textStatus);
 
-                }).always(function() {
-                console.log("completou");
-                }); 
+    //             }).always(function() {
+    //             console.log("completou");
+    //             }); 
 
 
-                });
+    //             });
            
 
 

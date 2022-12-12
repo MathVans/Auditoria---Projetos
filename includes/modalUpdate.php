@@ -137,8 +137,8 @@
                                 </div>
                               </div>
                             <div class="modal-footer">
-                              <button id="btnExcluirProj" type="button" class="btn btn-danger m-1" style="right: 300px; position:relative">Excluir</button>    
-                              <button type="submit" class="btn btn-success">Editar</button>
+                              <button type="submit" name ="Excluir" type="button" class="btn btn-danger m-1" style="right: 300px; position:relative"onclick="send('Excluirs')">Excluir</button>    
+                              <button type="submit" name ="Atualizar" class="btn btn-success" onclick="send('Atualizar')">Editar</button>
                             </div>
                         </form>
                       </div>
@@ -154,6 +154,5 @@
 
 
 </script>
-
 
 
