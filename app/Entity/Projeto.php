@@ -13,7 +13,7 @@ class Projeto{
  * 
  * 
  */
-public $ID;
+public $id;
 
 
 /**
@@ -129,9 +129,37 @@ public function cadastrar(){
                 return true;
             
             }
+/** 
+ * 
+ *
+ * Atualizar novo projeto
+ * 
+ * @return boolean
+ */
+
+ public function atualizar(){
+    $obDatabase = new Database('projetos');
+    $this->ID = $obDatabase->update('ID = '.$this->id, [
+                            'projeto'=> $this->projeto,
+                            'area'=> $this->area,
+                            'operacao'=> $this->operacao,
+                            'plataforma'=> $this->plataforma,
+                            'clienteUn'=> $this->clienteUn,
+                            'titulo'=> $this->titulo,
+                            'situacao'=> $this->situacao,
+                            'local'=> $this->local
+                        ]);
+                                  
+                return true;
+            
+            }
+
+
+
+
 
     /**
-     * 
+     * METODO QUE RETORNA LISTA DE PROJETO
      * 
      * @param string
      * @param string
@@ -139,8 +167,23 @@ public function cadastrar(){
      * 
      * @return array
      *  */        
-    public static function getProjeto($where=null, $order=null, $limit=null){
+    public static function getProjetos($where=null, $order=null, $limit=null){
 
         return(new Database('projetos'))->select($where,$order,$limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
+    /**
+     * METODO QUE RETORNA PROJETO POR ID
+     * 
+     * @param integer   
+     * 
+     * 
+     * 
+     * @return Projeto
+     *  */
+    public static function getProjeto($id){ 
+        print_r((new Database('projetos'))->select('ID ='.$id)->fetchObject(self::class));  
+        return (new Database('projetos'))->select('ID ='.$id)->fetchObject(self::class);
+
     }
 }

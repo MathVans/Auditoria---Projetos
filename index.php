@@ -1,14 +1,14 @@
 <?php
-
 require __DIR__.'\vendor\autoload.php';
 include('conexao.php');
 include __DIR__.'\script\Cadastrar.php';
+include __DIR__.'\script\Atualizar.php';
+include __DIR__.'\script\Excluir.php';
 
 use App\Entity\Projeto;
-$projetos = Projeto::getProjeto();
+$projetos = Projeto::getProjetos();
 
 session_start();
-
 if(!isset($_SESSION['user'])){
    // header('Location: signin.php');
 }else{
@@ -18,15 +18,13 @@ if(!isset($_SESSION['user'])){
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
-                <?php
-                //  ---------------------- HEADER
-                    include __DIR__.'/includes/header.php';
-                ?>
+<?php
+//  ---------------------- HEADER
+include __DIR__.'/includes/header.php';
+?>
 
 
 
@@ -41,65 +39,65 @@ if(!isset($_SESSION['user'])){
         </div>
         <!-- Spinner End -->
 
-                <?php
-                //  ----------------------   SIDEBAR
-                include __DIR__.'/includes/sidebar.php';
-                ?>
+<?php
+//  ----------------------   SIDEBAR
+include __DIR__.'/includes/sidebar.php';
+?>
 
         <!-- Content Start -->
         <div class="content">            
-                <?php
-                //  ---------------------- NAVBAR
-                    include __DIR__.'/includes/navbar.php';
-                ?>
+<?php
+//  ---------------------- NAVBAR
+include __DIR__.'/includes/navbar.php';
+?>
+
+
+
+
+
             <!-- List Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        
+                    <div class="d-flex align-items-center justify-content-between mb-4">    
                 <form method="get" class="d-none d-md-flex ms-3 mb-0">
                     <input class="form-control border-0 " type="text" name="busca" placeholder="Procurar Projeto" value="<?=$busca?>">
                     <button type="submit" class="btn btn-primary m-2" >Procurar</button>
                 </form>
-
-              
-
-                        <button type="button" class="btn btn-primary g-4" onclick="openModal()" data-toggle="modal" data-target="#exampleModal" data-whatever="testestes">Cadastrar</button>
-                    
-                    <!--  MODAL    -->               
-                    <?php
-                    //  ----------------------
-                            include __DIR__.'/includes/modal.php';
-                            include __DIR__.'/includes/modalUpdate.php';
-                    ?>
-                                       
-                    <!--FIM MODAL-->
+            <button type="button" class="btn btn-primary g-4" onclick="openModal()" data-toggle="modal" data-target="#exampleModal" data-whatever="testestes">Cadastrar</button>
+                  
+<?php
+//  ----------------------
+include __DIR__.'/includes/modal.php';
+include __DIR__.'/includes/modalUpdate.php';
+?>                                          
+<!--FIM MODAL-->
                     
                     
-                    </div>
-                    <div class="table-responsive">
-                <?php
-                //  ---------------------- TABELA
-                        include __DIR__.'/includes/table.php';
-                ?>
-                    </div>
-                </div>
-            </div>
-      
-            <!-- Footer Start -->
-            <?php
-            //  ---------------------- FOOTER
-                    include __DIR__.'/includes/footer.php';
-            ?>
-            <!-- Footer End -->
-        </div>
-
-        <!-- Content End -->
-                                
-
-        <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+        <div class="table-responsive">
+<?php
+//  ---------------------- TABELA
+include __DIR__.'/includes/table.php';
+?>
+        </div>
+    </div>
+</div>
+<!--  MODAL    -->               
+ 
+
+<!-- Footer Start -->
+<?php
+include __DIR__.'/includes/footer.php';
+?>
+<!-- Footer End -->
+
+</div>
+<!-- Content End -->
+                            
+
+<!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -117,11 +115,65 @@ if(!isset($_SESSION['user'])){
     <script src="js/main.js"></script>
 
 
+
+
+
 <script type="text/javascript">
+
     function openModal(){
         $('#exampleModal').modal('show');
-    }
+    }   
+
+    /**
+     * 
+     * 
+     * AJAX REQUISITION
+     * 
+     * Excluir Projeto
+     * 
+     * 
+     */
+                $("#btnExcluirProj").click(function () {      
+                    debugger;
+                    var dados = {
+                        UpIDId: $("#UpIDId").val()
+                    
+                    };
+                    console.log(dados);
+                    $.ajax({
+                url: "script/Excluir.php",
+                type: "POST",
+                data: dados,
+                dataType: "html"
+
+                }).done(function(resposta) {
+                console.log(resposta);
+
+                }).fail(function(jqXHR, textStatus ) {
+                console.log("Request failed: " + textStatus);
+
+                }).always(function() {
+                console.log("completou");
+                }); 
+
+
+                });
+           
+
+
+
+
+
+
+                    
+                    
+
 </script>
+
+
+
+
+
 
 
 </body>

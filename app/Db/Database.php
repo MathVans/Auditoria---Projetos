@@ -90,6 +90,27 @@ public function insert($values){
         $this->execute($query,array_values($values));
         return $this->connection->lastInsertId();;
 }
+
+
+ /**
+ * 
+ * 
+ * @param string
+ * @param array
+ * @return boolean
+ * 
+ */
+  public function update($where, $values){
+    $fields = array_keys($values);
+    $query = 'UPDATE '.$this->table.' SET '.implode('=?, ',$fields).'=? WHERE '.$where;
+//    echo $query;
+//    exit;
+        $this->execute($query,array_values($values));
+    
+    return true;
+}     
+
+
 /**
  * 
  * 
@@ -102,6 +123,7 @@ public function execute($query, $params = []){
             try {
             
                 $statement = $this->connection->prepare($query);
+                
                 $statement->execute($params);
                 return $statement;
                 //code...
@@ -127,14 +149,15 @@ public function select($where =null, $order =null, $limit=null, $fields='*'){
             $order = strlen($order) ? 'ORDER BY '.$order : '';
             $limit = strlen($limit) ? 'LIMIT '.$limit : '';
 
-            $query = 'SELECT '.$fields.' FROM '.$this->table.''.$where.''.$order.''.$limit;
-            
+            $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
+            // echo $query;
+            // exit;
             return $this->execute($query);
           
-        }    
+        } 
+ 
+        
 }
-
-
 
 
 

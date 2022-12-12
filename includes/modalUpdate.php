@@ -1,9 +1,22 @@
+<?php
+   $query = "select DISTINCT(operacao) FROM projetos ORDER BY operacao ASC;";
+   $query2 = "select DISTINCT(plataforma) FROM projetos;";
+   $query3 = "select DISTINCT(clienteUn) FROM projetos;";
+   $query4 = "select DISTINCT(local) FROM projetos;";
+   $query5 = "select DISTINCT(situacao) FROM projetos WHERE situacao IS NOT NULL AND situacao != '';";
+   $operacao = mysqli_query($conexao, $query);
+   $plataforma = mysqli_query($conexao, $query2);
+   $cliente = mysqli_query($conexao, $query3);
+   $local = mysqli_query($conexao, $query4);
+   $status = mysqli_query($conexao, $query5);
 
+?>
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Atualizar Auditoria Projeto</h5>
+      <p id="modal_body"></p>
+        <h5 class="modal-title" id="exampleModalLabel">Auditoria Projeto</h5>
         <button type="button" class="close" onclick="closeUpdateModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -13,19 +26,19 @@
                 <div class="modal-body">      
                   <div class="bg-light rounded h-100 p-4">
                           <div class="form-floating form-group mb-3">
-                                  <input type="text" class="form-control" name="ProjetoId" id="ProjetoId"
+                                  <input type="text" class="form-control" name="UpProjetoId" id="UpProjetoId"
                                       placeholder="Projeto" required>
                                   <label for="ProjetoId">Projeto</label>
                           </div>
 
                           <div class="form-floating form-group mb-3">
-                              <input type="text" class="form-control" id="AreaId" name="AreaId"
+                              <input type="text" class="form-control" id="UpAreaId" name="UpAreaId"
                                   placeholder="Área" required>
-                              <label for="AreaId">Área</label>
+                              <label for="UpAreaId">Área</label>
                           </div>
 
                           <div class="form-floating form-group mb-3">
-                              <select class="form-select" id="OperacaoSelect" name="OperacaoSelect" 
+                              <select class="form-select" id="UpOperacaoSelect" name="UpOperacaoSelect" 
                                 aria-label="Floating label select example" required>
                                  <option selected disabled value="">Selecione uma Operação</option> 
                               <?php
@@ -36,19 +49,19 @@
                                 } 
                               ?> 
                               </select>
-                              <label for="OperacaoSelect">Selecione uma Operação</label>
+                              <label for="UpOperacaoSelect">Selecione uma Operação</label>
                           </div>
 
                           <div class="form-floating form-group">
                               <textarea class="form-control" placeholder="Informe o título do projeto"
-                                  id="TituloProjeto" name="TituloProjeto" style="height: 100px;" required></textarea >
-                              <label for="TituloProjeto">Título</label>
+                                  id="UpTituloProjeto" name="UpTituloProjeto" style="height: 100px;" required></textarea >
+                              <label for="UpTituloProjeto">Título</label>
                           </div>
                               <br>
-                              <p id="modal_body"></p>
+                              
                               <!-- -----------------SELECT SECTION----------------------- -->
-                          <div class="form-floating form-group mb-1 col-4" style="display: inline-block;">
-                              <select class="form-select" id="PlataformaSelect" name="PlataformaSelect" 
+                          <div class="form-floating form-group mb-1 col-5" style="display: inline-block;">
+                              <select class="form-select" id="UpPlataformaSelect" name="UpPlataformaSelect" 
                                 aria-label="Floating label select example" required>
                                 <option selected disabled value="">Plataforma</option>
                               <?php
@@ -59,11 +72,11 @@
                                 } 
                               ?> 
                               </select>
-                              <label for="PlataformaSelect">Plataforma</label>
+                              <label for="UpPlataformaSelect">Plataforma</label>
                           </div>
 
-                          <div class="form-floating form-group mb-1 col-4" style="display: inline-block;">
-                              <select class="form-select" id="ClienteSelect" name="ClienteSelect" 
+                          <div class="form-floating form-group mb-1 col-5" style="display: inline-block;">
+                              <select class="form-select" id="UpClienteSelect" name="UpClienteSelect" 
                                 aria-label="Floating label select example" required>
                                 <option selected disabled value="">Cliente</option>
                               <?php
@@ -74,12 +87,12 @@
                                 } 
                               ?> 
                               </select>
-                              <label for="ClienteSelect">Cliente</label>
+                              <label for="UpClienteSelect">Cliente</label>
                           </div>
 
                           
-                          <div class="form-floating form-group mb-1 col-4" style="display: inline-block;">
-                              <select class="form-select" id="LocalSelect" name="LocalSelect" 
+                          <div class="form-floating form-group mb-1 col-5" style="display: inline-block;">
+                              <select class="form-select" id="UpLocalSelect" name="UpLocalSelect" 
                                 aria-label="Floating label select example" required>
                                 <option selected disabled value="">Local</option>
                               <?php
@@ -90,44 +103,56 @@
                                 } 
                               ?> 
                               </select>
-                              <label for="LocalSelect">Local</label>
+                              <label for="UpLocalSelect">Local</label>
                           </div>
 
-                          <div class="form-floating form-group mb-1 col-4" style="display: inline-block;">
-                              <select class="form-select" id="StatusSelect" name="StatusSelect" 
+                          <div class="form-floating form-group mb-1 col-5" style="display: inline-block;">
+                              <select class="form-select" id="UpStatusSelect" name="UpStatusSelect" 
                                 aria-label="Floating label select example" required>
-                                
                                 <option selected disabled value="">Status</option>
-                              <?php
-                                  if (mysqli_num_rows($status)) {
-                                    while ($row5 = mysqli_fetch_array($status)) {
-                                        echo "<option value=".$row5['situacao'].">{$row5['situacao']}</td>";
-                                    }
-                                } 
-                              ?> 
+                                          <?php
+                                              if (mysqli_num_rows($status)) {
+                                                while ($row5 = mysqli_fetch_array($status)) {
+                                  
+                                                    echo '<option value="'."{$row5['situacao']}".'"'.">{$row5['situacao']}</td>";
+                                                }
+                                            } 
+                                          ?> 
                               </select>
-                              <label for="StatusSelect">Status</label>
+                              <label for="UpStatusSelect">Status</label>
                           </div>
                           
+                                                <!------ID DIV-------->
+                                              <div class="form-floating form-group mb-3" style="display:none">
+                                                  <input type="integer" class="form-control" name="UpIDId" id="UpIDId"
+                                                      placeholder="Id" required>
+                                                  <label for="UpIDId">id</label>
+                                              </div>
+                                               <!------ID DIV-------->
+                                            <br>         
+                                <button class="btn btn-primary w-100 m-2" type="button">Abrir Auditoria</button>
                           
-
 
                                   <!-- ----------------- END SELECT SECTION----------------------- -->
+                                </div>
+                              </div>
+                            <div class="modal-footer">
+                              <button id="btnExcluirProj" type="button" class="btn btn-danger m-1" style="right: 300px; position:relative">Excluir</button>    
+                              <button type="submit" class="btn btn-success">Editar</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                          </div>
-      </form>
-    </div>
-  </div>
-</div>
 <script type="text/javascript">
+
+
     function closeUpdateModal(){
       //alert("teste");
         $('#updateModal').modal('hide');
-       
-    }
+} 
+
+
 </script>
 
 
